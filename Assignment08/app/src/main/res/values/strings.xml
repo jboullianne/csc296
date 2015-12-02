@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Assignment08</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_message">Welcome!</string>
+    <string name="icon_camera">Camera</string>
+    <string name="icon_model_list">Model List</string>
+    <string name="title_activity_video_game_recycler">VideoGameRecyclerActivity</string>
+    <string name="title_activity_camera">CameraActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="icon_new_video_game">New Video Game</string>
+    <string name="title_activity_add_video_game">AddVideoGameActivity</string>
+    <string name="icon_new_image">New Image</string>
+    <string name="title_activity_full_screen_image_view">FullScreenImageView</string>
+</resources>

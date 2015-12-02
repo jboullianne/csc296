@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/kickstarterPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/kickstarterPrimary</item>
+        <item name="android:colorBackground">@color/kickstarterBackground</item>
+
+        <item name="android:textViewStyle">@style/RecyclerViewText</item>
+
+    </style>
+
+    <style name="RecyclerViewHolder">
+        <item name="android:background">@drawable/fancy_view_holder</item>
+    </style>
+
+    <style name="RecyclerViewText">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
+</resources>

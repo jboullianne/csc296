@@ -1,0 +1,22 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bestbuyPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/bestbuyPrimary</item>
+        <item name="android:colorBackground">@color/kickstarterBackground</item>
+
+        <item name="android:textViewStyle">@style/RecyclerViewText</item>
+
+    </style>
+
+    <style name="RecyclerViewHolder">
+        <item name="android:background">@drawable/super_fancy_view_holder</item>
+    </style>
+
+    <style name="RecyclerViewText">
+        <item name="android:textColor">#FFFFFFFF</item>
+    </style>
+
+</resources>

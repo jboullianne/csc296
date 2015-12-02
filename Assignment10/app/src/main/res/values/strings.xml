@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Assignment10</string>
+    <string name="hint_long_number">Positive 64-bit Signed Integer</string>
+    <string name="button_next_prime">Find Next Largest Prime</string>
+    <string name="button_square_root">Find Square Root</string>
+    <string name="textview_result">Result: ...</string>
+    <string name="button_async_tester">AsyncTask Tester</string>
+    <string name="button_handler_tester">Handler Tester</string>
+    <string name="button_image_fetcher">Image Fetcher</string>
+    <string name="textview_enter_url">Enter http URL</string>
+    <string name="button_fetch_image">Fetch Image</string>
+</resources>
