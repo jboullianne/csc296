@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".LoginActivity">
+
+    <item android:id="@+id/menu_home"
+        android:title="@string/menu_home"
+        app:showAsAction="withText"
+        android:visible="false"/>
+
+    <item android:id="@+id/menu_favorites_feed"
+        android:title="@string/menu_favorites_feed"
+        app:showAsAction="withText"
+        android:visible="false"/>
+
+    <item android:id="@+id/menu_all_users"
+        android:title="@string/menu_all_users"
+        app:showAsAction="withText"
+        android:visible="false"/>
+
+    <item android:id="@+id/menu_logout"
+        android:title="@string/menu_logout"
+        app:showAsAction="withText"
+        android:visible="false"/>
+</menu>

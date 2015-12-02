@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">The Social Network</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_home">Home</string>
+    <string name="text_change">Change</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_favorites_feed">Favorites Feed</string>
+    <string name="menu_all_users">All Users</string>
+    <string name="title_favorites_feed">Favorites Feed</string>
+    <string name="title_all_users">All Users</string>
+    <string name="title_sign_up">Sign Up</string>
+    <string name="hint_signup_hometown">City, State (optional)</string>
+    <string name="signup_hometown">Hometown:</string>
+    <string name="signup_birthday">Birthdate:</string>
+    <string name="hint_signup_birthday">mm/dd/yyyy (optional)</string>
+    <string name="signup_bio">Bio:</string>
+    <string name="hint_signup_bio">(optional)</string>
+    <string name="button_signup_attach_profile_picture">Take Profile Photo</string>
+    <string name="button_signup_cancel">Cancel</string>
+    <string name="button_signup_submit">Sign Up</string>
+    <string name="hint_signup_fullname">First Last</string>
+    <string name="signup_fullname">Full Name:</string>
+    <string name="hint_signup_password">Min. 6 Characters</string>
+    <string name="signup_password">Password:</string>
+    <string name="hint_signup_username">Email Address</string>
+    <string name="signup_username">Username:</string>
+    <string name="home_about">About</string>
+
+</resources>

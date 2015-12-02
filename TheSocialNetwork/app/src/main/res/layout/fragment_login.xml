@@ -1,0 +1,69 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="project02.csc296.thesocialnetwork.LoginFragment">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:src="@mipmap/login_logo"
+            android:layout_centerHorizontal="true"/>
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/password_field"
+            android:inputType="textPassword"
+            android:hint="Password"
+            android:layout_centerInParent="true"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="15dp"
+            android:id="@+id/username_field"
+            android:inputType="textWebEmailAddress"
+            android:hint="Username"
+            android:layout_above="@id/password_field"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password_field"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_signup"
+                android:text="Sign Up"
+                android:onClick="requestSignUp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/button_login"
+                android:text="Login"
+                android:onClick="requestLogin"/>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>
