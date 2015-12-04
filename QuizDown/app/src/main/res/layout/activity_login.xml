@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/login_background"
+        android:scaleType="centerCrop"
+        android:tint="#2f3a49"
+        android:tintMode="screen">
+
+    </ImageView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:text="QuizDown"
+        android:gravity="center"
+        android:textColor="#FFF"
+        android:layout_marginTop="-20dp"
+        android:textSize="60dp"
+        android:textStyle="bold"
+        android:id="@+id/logo_title"
+        android:alpha="0" />
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_above="@id/logo_title"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/logo_icon"
+        android:src="@mipmap/ic_launcher2"
+        android:rotation="180"
+        android:alpha="0" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Play Now"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@drawable/play_button"
+        android:id="@+id/button_play"
+        android:textSize="20dp"
+        android:textColor="#52b043"
+        android:textAllCaps="false"
+        android:alpha="0" />
+
+</RelativeLayout>
