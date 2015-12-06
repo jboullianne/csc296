@@ -9,11 +9,23 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.parse.ParseException;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements TopicsFragment.OnFragmentInteractionListener, HighScoreFragment.OnFragmentInteractionListener{
 
@@ -93,14 +105,14 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
             // Return a HomeFragment (defined as a static inner class below).
             switch (position){
                 case 0:
-                    return HomeFragment.newInstance();
+                    return UserFragment.newInstance();
                 case 1:
                     return TopicsFragment.newInstance();
                 case 2:
                     return HighScoreFragment.newInstance();
             }
 
-            return HomeFragment.newInstance();
+            return UserFragment.newInstance();
         }
 
         @Override
@@ -123,37 +135,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
         }
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class HomeFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-
-
-        public static HomeFragment newInstance() {
-            return new HomeFragment();
-        }
-
-        public HomeFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
-            return rootView;
-        }
-    }
 
     public void onFragmentInteraction(Uri uri){
 

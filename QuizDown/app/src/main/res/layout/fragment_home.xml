@@ -4,34 +4,70 @@
     tools:context="csc296.quizdown.HomeActivity.HomeFragment"
     android:background="#545454">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textview_username"
-        android:textColor="#FFF"
-        android:text="Jean-Marc Boullianne"
-        android:textSize="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_centerHorizontal="true"/>
+        android:id="@+id/user_info_bar">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/textview_username"
-        android:id="@+id/logo_icon"
-        android:src="@drawable/user_icon"
-        android:layout_marginBottom="15dp"
-        android:alpha="1" />
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/user_icon"
+            android:src="@drawable/user_icon"
+            android:layout_margin="10dp"
+            android:alpha="1" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textview_username"
+                android:textColor="#FFF"
+                android:text="Jean-Marc Boullianne"
+                android:textSize="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="15dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textview_username"
+                android:id="@+id/flair_bar"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@mipmap/medal_icon"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Developer"
+                    android:textColor="#FFF"
+                    android:textSize="15dp"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/logo_icon"
+        android:layout_below="@id/user_info_bar"
         android:divider="@android:drawable/divider_horizontal_dark"
         android:showDividers="middle"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/layout_stat_bar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -118,41 +154,112 @@
 
 
         </LinearLayout>
-        <RelativeLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="#FFF">
+            android:layout_height="wrap_content"
+            android:showDividers="middle"
+            android:divider="@android:drawable/divider_horizontal_dim_dark"
+            android:id="@+id/stat_num_bar2">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FFF"
+                android:orientation="vertical"
+                android:padding="5dp">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/stat_bar_win"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HIGHEST LEVEL"
+                    android:layout_gravity="center_horizontal" />
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/stat_bar_tie"/>
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/stat_bar_lose"/>
+                <Button
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@mipmap/rank_set1"
+                    android:text="1"
+                    android:id="@+id/highest_level_icon"
+                    android:layout_gravity="center"/>
 
             </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FFF"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Highest Score"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1eff00"
+                    android:text="160"
+                    android:textSize="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/highest_score"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#FFF"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WIN/LOSSES"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff5454"
+                    android:text="77%"
+                    android:textSize="35dp"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/game_history_percentage"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recent Game History"
+        android:textColor="#FFF"
+        android:textSize="20dp"
+        android:layout_below="@id/layout_stat_bar"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:id="@+id/textview_history"/>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/home_stat_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textview_history"
+        android:layout_marginTop="5dp"/>
 
 
 

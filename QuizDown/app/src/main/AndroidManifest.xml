@@ -24,7 +24,11 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <activity android:name=".TopicActivity" >
+        <activity
+            android:name=".TopicActivity"
+            android:parentActivityName=".HomeActivity" >
+        </activity>
+        <activity android:name=".GameActivity" >
         </activity>
     </application>
 
