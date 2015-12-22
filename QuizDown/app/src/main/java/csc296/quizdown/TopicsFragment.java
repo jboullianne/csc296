@@ -1,3 +1,9 @@
+/*
+Jean-Marc Boullianne
+jboullia@u.rochester.edu
+Project 03: QuizDown
+ */
+
 package csc296.quizdown;
 
 import android.app.Activity;
@@ -42,6 +48,7 @@ public class TopicsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     public static String KEY_TOPIC = "csc296.QuizDown.TOPIC_TITLE";
     public static String KEY_ICON = "csc296.QuizDown.TOPIC_ICON";
+    private static final String TAG = "TOPICS_FRAGMENT";
 
     private GridLayout mTopicGrid;
 
@@ -65,13 +72,15 @@ public class TopicsFragment extends Fragment {
 
         mTopicGrid = (GridLayout) rootView.findViewById(R.id.gridlayout_topics);
 
+
+        //Populates the screen with topics that the user can play
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Topics");
         query.whereExists("Title");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> scoreList, ParseException e) {
                 if (e == null) {
                    for(ParseObject topic : scoreList) {
-                        Log.d("TopicsFragment", "Displaying Topics");
+                        Log.d(TAG, "Displaying Topics");
                        //Icon of Topic
                        final ImageButton topicButton = new ImageButton(getContext());
 
@@ -84,17 +93,31 @@ public class TopicsFragment extends Fragment {
                            topicButton.setBackgroundColor(Color.TRANSPARENT);
                            topicButton.setLayoutParams(new LinearLayout.LayoutParams(280, 280));
 
-                           mTopicGrid.addView(topicButton);
-                           GridLayout.LayoutParams params = (GridLayout.LayoutParams) topicButton.getLayoutParams();
+                           TextView topicTitle = new TextView(getContext());
+                           topicTitle.setText(String.valueOf(topic.getString("Title")));
+                           topicTitle.setTextColor(Color.parseColor("#FFFFFF"));
+                           topicTitle.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                           topicTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 10);
+
+                           LinearLayout linearLayout = new LinearLayout(getContext());
+                           linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                           linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+                           linearLayout.addView(topicButton);
+                           linearLayout.addView(topicTitle);
+
+
+                           mTopicGrid.addView(linearLayout);
+                           GridLayout.LayoutParams params = (GridLayout.LayoutParams) linearLayout.getLayoutParams();
                            params.setMarginEnd(15);
-                           topicButton.setLayoutParams(params);
+                           linearLayout.setLayoutParams(params);
 
                            final String title = topic.getString("Title");
 
                            topicButton.setOnClickListener(new View.OnClickListener() {
                                @Override
                                public void onClick(View v) {
-                                    Log.d("TopicButton", "Topic Button Pressed!");
+                                    Log.d(TAG, "Topic Button Pressed!");
                                    topicButton.setTransitionName(getString(R.string.transition_name_topic));
 
                                    Intent intent = new Intent(getActivity(), TopicActivity.class);
@@ -121,7 +144,7 @@ public class TopicsFragment extends Fragment {
 
                    }
                 } else {
-                    Log.d("score", "Error: " + e.getMessage());
+                    Log.d(TAG, "Error: " + e.getMessage());
                 }
             }
         });

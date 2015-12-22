@@ -4,6 +4,8 @@
     tools:context="csc296.quizdown.HomeActivity.HomeFragment"
     android:background="#545454">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +17,7 @@
             android:id="@+id/user_icon"
             android:src="@drawable/user_icon"
             android:layout_margin="10dp"
-            android:alpha="1" />
+            android:alpha="1"/>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -42,15 +44,28 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@mipmap/medal_icon"/>
+                    android:id="@+id/user_flair_icon"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Developer"
+                    android:text=""
+                    android:id="@+id/user_flair"
                     android:textColor="#FFF"
                     android:textSize="15dp"/>
 
             </LinearLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_settings"
+                android:tint="#6fed5b"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/button_settings"
+                android:background="@android:color/transparent"/>
 
 
         </RelativeLayout>
@@ -112,17 +127,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WINS"
+                    android:text="PLAYER SINCE"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#1eff00"
+                    android:layout_weight="1"
+                    android:textColor="#0080ff"
                     android:text="123"
-                    android:textSize="35dp"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/textview_total_wins"/>
+                    android:textSize="15dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/textview_player_since"/>
 
             </LinearLayout>
 
@@ -137,17 +154,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="LOSSES"
+                    android:text="PLAYER RANK"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff5454"
+                    android:textColor="#0080ff"
                     android:text="123"
                     android:textSize="35dp"
                     android:layout_gravity="center_horizontal"
-                    android:id="@+id/textview_total_losses"/>
+                    android:id="@+id/textview_total_rank"/>
 
             </LinearLayout>
 
@@ -197,17 +214,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highest Score"
+                    android:text="BEST TOPIC"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#1eff00"
-                    android:text="160"
-                    android:textSize="35dp"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/highest_score"/>
+                    android:layout_weight="1"
+                    android:textColor="#0080ff"
+                    android:text="Computer Science"
+                    android:textSize="10dp"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/game_history_best_topic"/>
 
             </LinearLayout>
 
@@ -222,21 +242,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WIN/LOSSES"
+                    android:text="HIGHEST SCORE"
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#ff5454"
-                    android:text="77%"
+                    android:textColor="#0080ff"
+                    android:text="160"
                     android:textSize="35dp"
                     android:layout_gravity="center_horizontal"
-                    android:id="@+id/game_history_percentage"/>
+                    android:id="@+id/highest_score"/>
 
             </LinearLayout>
-
-
 
         </LinearLayout>
 
@@ -262,6 +280,11 @@
         android:layout_marginTop="5dp"/>
 
 
-
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:id="@+id/loading_symbol"/>
 
 </RelativeLayout>

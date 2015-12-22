@@ -35,20 +35,175 @@
         android:rotation="180"
         android:alpha="0" />
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/logo_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="Play Now"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:background="@drawable/play_button"
-        android:id="@+id/button_play"
-        android:textSize="20dp"
-        android:textColor="#52b043"
-        android:textAllCaps="false"
-        android:alpha="0" />
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:alpha="0"
+        android:id="@+id/login_action_layout">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SignUp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:id="@+id/login_signup"
+            android:layout_marginRight="3dp"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Login"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:id="@+id/login_play"
+            android:layout_marginLeft="3dp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/logo_title"
+        android:layout_marginTop="40dp"
+        android:layout_margin="15dp"
+        android:visibility="gone"
+        android:alpha="0"
+        android:id="@+id/login_layout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/login_username"
+            android:hint="Username"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:paddingLeft="10dp"
+            android:maxLines="1"
+            android:inputType="textNoSuggestions"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/login_password"
+            android:hint="Password"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:paddingLeft="10dp"
+            android:inputType="textPassword"
+            android:maxLines="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/login_cancel"
+                android:text="Cancel"
+                android:layout_marginRight="3dp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/login_login"
+                android:text="Login"
+                android:layout_marginLeft="3dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/logo_title"
+        android:layout_marginTop="40dp"
+        android:layout_margin="15dp"
+        android:visibility="gone"
+        android:alpha="0"
+        android:id="@+id/signup_layout">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/signup_username"
+            android:hint="Username"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:paddingLeft="10dp"
+            android:maxLines="1"
+            android:inputType="text"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/signup_password"
+            android:hint="Password"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:paddingLeft="10dp"
+            android:inputType="textPassword"
+            android:maxLines="1"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/signup_email"
+            android:hint="Email"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#000"
+            android:textColorHint="#000"
+            android:paddingLeft="10dp"
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/signup_cancel"
+                android:text="Cancel"
+                android:layout_marginRight="3dp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/signup_signup"
+                android:text="Signup"
+                android:layout_marginLeft="3dp"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>

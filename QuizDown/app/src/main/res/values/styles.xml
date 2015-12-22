@@ -15,6 +15,10 @@
         <item name="android:windowEnterTransition">@transition/explode</item>
         <item name="android:windowExitTransition">@transition/explode</item>
 
+        <item name="android:buttonStyle">@style/myButton</item>
+        <item name="android:editTextBackground">@drawable/edittext</item>
+        <item name="android:textViewStyle">@style/myTextView</item>
+
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -22,8 +26,23 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="Widget.AppCompat.Button." parent="Widget.AppCompat.Button.">
+
+    <!-- Custom Button Style -->
+    <style name="myButton" parent="Base.Widget.AppCompat.Button">
         <item name="android:background">@drawable/play_button</item>
+        <item name="android:textColor">#52b043</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <!-- Custom EditText Style -->
+    <style name="myEditText" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/edittext</item>
+    </style>
+
+    <!-- Custom TextView Style -->
+    <style name="myTextView">
+        <item name="android:textColor">#6fed5b</item>
     </style>
 
 </resources>

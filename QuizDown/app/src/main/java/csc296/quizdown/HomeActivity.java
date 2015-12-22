@@ -1,3 +1,9 @@
+/*
+Jean-Marc Boullianne
+jboullia@u.rochester.edu
+Project 03: QuizDown
+ */
+
 package csc296.quizdown;
 
 import android.net.Uri;
@@ -27,7 +33,7 @@ import org.json.JSONException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements TopicsFragment.OnFragmentInteractionListener, HighScoreFragment.OnFragmentInteractionListener{
+public class HomeActivity extends AppCompatActivity implements TopicsFragment.OnFragmentInteractionListener, LeaderBoardFragment.UserItemClickListener{
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -37,6 +43,8 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    private static final String TAG = "HOME_ACTIVITY";
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     /**
@@ -73,6 +81,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
         return true;
     }
 
+    //presents the user with an option to logout if they would like to
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -82,7 +91,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            super.onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
@@ -99,6 +108,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
             super(fm);
         }
 
+        //Loads the correct fragment depending on the page
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
@@ -109,7 +119,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
                 case 1:
                     return TopicsFragment.newInstance();
                 case 2:
-                    return HighScoreFragment.newInstance();
+                    return LeaderBoardFragment.newInstance("Overall");
             }
 
             return UserFragment.newInstance();
@@ -121,6 +131,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
             return 3;
         }
 
+        //Sets page titles
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
@@ -129,7 +140,7 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
                 case 1:
                     return "Topics";
                 case 2:
-                    return "High Scores";
+                    return "Leaderboard";
             }
             return null;
         }
@@ -139,5 +150,9 @@ public class HomeActivity extends AppCompatActivity implements TopicsFragment.On
 
     public void onFragmentInteraction(Uri uri){
 
+    }
+
+    public void onUserItemClicked(ParseUser user){
+        Log.d(TAG, user.getUsername() + " : Clicked");
     }
 }

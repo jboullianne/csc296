@@ -1,45 +1,64 @@
+/*
+Jean-Marc Boullianne
+jboullia@u.rochester.edu
+Project 03: QuizDown
+ */
+
 package csc296.quizdown;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.ColorStateList;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.SoundPool;
 import android.os.Handler;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import csc296.quizdown.model.DataManager;
+import csc296.quizdown.model.Question;
 
 public class GameActivity extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
+    public static final String KEY_DATA_CLASS = "csc296.quizdown.KEY_DATA_CLASS";
 
     private static final int ROUND_DELAY = 1500;
 
     private String topicName;
     private String statsClass;
     private String questionClass;
+    private int tNumGames;
     private ImageView mIcon;
     private ImageView mUserIcon;
     private TextView mTopic;
@@ -58,6 +77,9 @@ public class GameActivity extends AppCompatActivity {
 
     private Question mCurrentQuestion;
     private DataManager dataManager;
+    private SoundPool mSoundPool;
+    private AssetManager mAssets;
+    private int soundId;
 
 
 
@@ -84,28 +106,67 @@ public class GameActivity extends AppCompatActivity {
         mAnswer3 = (Button) findViewById(R.id.gameview_answer3);
         mAnswer4 = (Button) findViewById(R.id.gameview_answer4);
 
+        //Starts game round sounds
+        String soundNames[];
+        mAssets = getApplicationContext().getAssets();
+        mSoundPool = new SoundPool.Builder().build();
+        try {
+            soundNames = mAssets.list("sounds");
+            for(String filename : soundNames) {
+                String path = "sounds" + "/" + filename;
+                Log.d(TAG, filename);
+
+                try {
+                    AssetFileDescriptor afd = mAssets.openFd(path);
+                    soundId = mSoundPool.load(afd, 1);
+                }
+                catch(IOException e) {
+                    Log.e(TAG, "could not load sound from file: " + path, e);
+                }
+            }
+        }
+        catch(IOException ioe) {
+            Log.e(TAG, "could not load sound files.", ioe);
+        }
+        mSoundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f);
+
+
+
+        //Gets topic info
         Intent intent = getIntent();
         if(intent != null){
 
             topicName = intent.getStringExtra(TopicActivity.KEY_TOPIC);
             mTopic.setText(topicName);
-            getSupportActionBar().hide();
+            getSupportActionBar().hide(); // Hides the Action bar for a fullscreen game activity
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Topics");
+            //gets topic data such as where the questions are stored, topic icon, user data, etc...
             query.whereEqualTo("Title", topicName);
             try{
                 ParseObject topic = query.find().get(0);
+
                 statsClass = topic.getString("data_source");
                 questionClass = topic.getString("question_source");
                 byte[] tmp = topic.getParseFile("Icon").getData();
                 mIcon.setImageBitmap(BitmapFactory.decodeByteArray(tmp, 0, tmp.length));
 
-                byte[] tmp2 = ParseUser.getCurrentUser().getParseFile("profile_photo").getData();
-                mUserIcon.setBackground(new BitmapDrawable(BitmapFactory.decodeByteArray(tmp2, 0, tmp2.length)));
+                //Displays the user's icon
+                ParseFile photo = ParseUser.getCurrentUser().getParseFile("profile_photo");
+                if (photo == null) {
+                    mUserIcon.setBackgroundColor(Color.TRANSPARENT);
+                    mUserIcon.setImageResource(R.mipmap.ic_launcher2);
+                } else {
+                    Log.d(TAG, "profile photo found");
+                    byte[] tmp2 = photo.getData();
+                    mUserIcon.setBackground(new BitmapDrawable(BitmapFactory.decodeByteArray(tmp2, 0, tmp2.length)));
+                    mUserIcon.setImageResource(R.drawable.user_icon);
+                }
             }catch (ParseException e){
 
             }
         }
 
+        //Controls the games data, and manages what happens in the game. What questions are displayed, answers, score, xp, time...
         dataManager = new DataManager(topicName, statsClass, questionClass);
         dataManager.generateQuestions();
         startNewRound(dataManager.getCurrentRound(), ROUND_DELAY);
@@ -117,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
 
                 if (correct) {
                     int timeLeft = dataManager.getTimeLeft();
-                    int oldScore = dataManager.getCurrentScore();
                     dataManager.setCurrentScore(dataManager.getCurrentScore() + timeLeft);
                     mScore.setText(String.valueOf(dataManager.getCurrentScore()));
                     Log.d(TAG, "Correct Answer!");
@@ -191,7 +251,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /*
+    handles all animations for the round (Displaying the answers, question, time left, and finishing the round)
+     */
     public void startNewRound(int round, int delay) {
+
+
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
@@ -266,8 +331,12 @@ public class GameActivity extends AppCompatActivity {
         finalAnim.playSequentially(roundAnim, introAnim);
         finalAnim.start();
 
+        //Sets time in round to 20 seconds
         dataManager.setTimeLeft(20);
 
+        /*
+        Controls time and finishes when either user selects an answer or the time runs out.
+         */
         final Handler handler = new Handler();
         final Timer timer = new Timer();
         final TimerTask task = new TimerTask() {
@@ -289,13 +358,14 @@ public class GameActivity extends AppCompatActivity {
         timer.scheduleAtFixedRate(task, 5500, 1000);
         task.run();
 
-
+        //Starts all animations
         ObjectAnimator anim = ObjectAnimator.ofInt(mTimeBar, "Width", size.x, 0);
         anim.setDuration(20000);
         anim.setStartDelay(0);
         anim.start();
     }
 
+    //Finishes round and updates all data in the datamanager
     public void endCurrentRound(){
 
         AnimatorSet anim = (AnimatorSet) AnimatorInflater.loadAnimator(getApplicationContext(), R.animator.fade_out_fast);
@@ -316,6 +386,12 @@ public class GameActivity extends AppCompatActivity {
                     dataManager.setCurrentRound(dataManager.getCurrentRound() + 1);
                     mGameLayout.setVisibility(View.GONE);
                     startNewRound(dataManager.getCurrentRound(), ROUND_DELAY);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Game Finished!", Toast.LENGTH_SHORT).show();
+                    Intent data = new Intent();
+                    data.putExtra(KEY_DATA_CLASS, dataManager.finishGame());
+                    setResult(RESULT_OK, data);
+                    finish();
                 }
             }
 
@@ -334,6 +410,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    //Loads question into widgets before they
     public void setupQuestion(){
         mCurrentQuestion = dataManager.getQuestions().get((int) (Math.random() * dataManager.getQuestions().size()));
         Log.d(TAG, "Question is: " + mCurrentQuestion.toString());
@@ -348,6 +425,7 @@ public class GameActivity extends AppCompatActivity {
         int correctAnswer = mCurrentQuestion.getCorrectAnswer();
     }
 
+    //Sets the one answer so when it's clicked it will turn green
     public void setCorrectAnswers(int choice){
         switch(mCurrentQuestion.getCorrectAnswer()){
             case 1:
@@ -388,6 +466,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    //Resets the answers for the next round
     public void resetAnswers(){
         mAnswer1.setBackgroundResource(R.drawable.play_button);
         mAnswer2.setBackgroundResource(R.drawable.play_button);
@@ -398,5 +477,39 @@ public class GameActivity extends AppCompatActivity {
         mAnswer2.setEnabled(true);
         mAnswer3.setEnabled(true);
         mAnswer4.setEnabled(true);
+    }
+
+    //Displays the dialog to ask if the user would actually like to quit
+    @Override
+    public void onBackPressed(){
+        DialogFragment dialog = new QuitDialogFragment();
+        dialog.show(getSupportFragmentManager(), "QuitDialog");
+    }
+
+    //Quit game and go back to topic activity
+    public void quitGame(){
+        super.onBackPressed();
+    }
+
+    //DialogFragment that prompts the user if they want to quit
+    public static class QuitDialogFragment extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Are you sure you want to quit?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ((GameActivity) getActivity()).quitGame();
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User cancelled the dialog
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
     }
 }
